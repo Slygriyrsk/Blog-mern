@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box; /* so that the register and login button does not need extra padding to fit */
+}
+a {
+  cursor: pointer;
+}
+body {
+  color: #333;
+}
+
+img {
+  max-width: 100%;
+}
+
+main {
+  padding: 10px;
+  max-width: 960px;
+  margin: 0 auto; /* auto for center placing */
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* for more spacing */
+  margin-bottom: 50px; /* so that we have some space between heading and the main body where blog post is*/
+  align-items: center;
+}
+
+header a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header a.logo {
+  font-weight: bold; /* just to boldify My Blog*/
+  font-size: 1.5rem;
+}
+
+header nav {
+  display: flex;
+  gap: 15px;
+}
+
+div.post {
+  display: grid;/* because we need good placements of the text and image*/
+  /* grid-template-columns: 0.9fr 1.1fr; */
+  grid-template-columns: 1fr;
+  gap: 20px; /* to maintain gap btw text and image*/
+  margin-bottom: 30px;
+}
+
+/* when we open the same in mobile then do styling */
+@media screen and (min-width: 700px) {
+  div.post {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+}
+
+div.post div.texts h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+div.post div.texts a {
+  text-decoration: none;
+  color: inherit;
+}
+
+div.post p.info {
+  margin: 6px 0;
+  color: #888;
+  font-size: .7rem;
+  font-weight: bold;
+  display: flex;
+  gap: 10px;
+}
+
+div.post p.info a.author {
+  color: #333;
+}
+
+div.post p.summary {
+  pad: 10px 0;
+  line-height: 1.4rem;
+}
+
+form.login, form.register {
+  max-width: 400px;
+  padding: 0 auto;
+}
+
+input {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 5px 7px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+button {
+  width: 100%;
+  display: block;
+  background-color: #555;
+  border: 0;
+  color: #fff;
+  border-radius: 5px;
+  padding: 6px;
+}
+
+form.login h1, form.register h1 {
+  text-align: center;
+}
+
+div.post-page div.image {
+  max-height: 200px;
+  display: flex;
+  overflow: hidden;
+}
+
+div.post-page div.image img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+div.post-page a { /* for the links */
+  color: #333;
+  text-decoration: underline;
+}
+
+div.post-page h1 {
+  text-align: center;
+  margin: 10px 0 5px;
+}
+
+div.post-page time {
+  text-align: center;
+  display: block;
+  font-size: .7rem;
+  color: #aaa;
+}
+
+div.post-page div.author {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: .7rem;
+  font-weight: bold;
+}
+
+div.post-page div.content p {
+  line-height: 1.6rem;
+}
+
+div.edit-row {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+div.post-page a.edit-btn {
+  display: inline-flex; /* edit icon and text aligned in flex direction at center*/
+  align-items: center;
+  gap: 5px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  padding: 15px 30px;
+  text-decoration: none;
+}
+
+a svg {
+  height: 20px;
+}
