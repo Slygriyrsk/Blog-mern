@@ -1,139 +1,199 @@
-# 🚀 Welcome to Your React App!
+![Screenshot 2024-09-01 212034](https://github.com/user-attachments/assets/5ab88a96-f9f7-4370-85bd-f286688bdb12)
 
-This project is powered by [Create React App](https://github.com/facebook/create-react-app), offering a comfortable environment for React development. Dive in and start building amazing things with React!
+# 📚 Blog Platform
 
-## 📑 Table of Contents
+Welcome to the Blog Platform! This application allows users to register, log in, create, view, and edit blog posts. It ensures that only logged-in users can create or modify their own posts, while guests can view posts.
 
-- [Introduction](#-introduction)
-- [Features](#features)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Credits](#-credits)
+# 🛠️ Installation
 
-## 🌟 Introduction
 
-This is a blog webpage built using the MERN stack (MongoDB, Express, React, Node.js). The application allows users to create, read, update, and delete blog posts.
+### Prerequisites
 
-## ✨ Features
+-   **Node.js** (v20.x or later, LTS)
+-   **MongoDB** (v7.x or later)
+-   **Yarn** (v1.22.x or later)
 
-- User authentication and authorization
-- Create, read, update, and delete blog posts (CRUD)
-- Commenting system
-- Search functionality
-- Responsive design
+### Clone the Repository
 
-## 🛠️ Installation
-
-1. **Clone the Repository**
-
-    ```bash
-    git clone https://github.com/Slygriyrsk/BlogMERN.git
-    cd BlogMERN
-    ```
-
-2. **Install Dependencies**
-
-    Install dependencies using either Yarn or npm:
-
-    **Using Yarn:**
-
-    ```bash
-    yarn install
-    ```
-
-    **Using npm:**
-
-    ```bash
-    npm install
-    ```
-
-3. **Start the Development Server**
-
-    **To start the React development server:**
-
-    ```bash
-    yarn start
-    ```
-
-    - 🌐 Open [http://localhost:3000](http://localhost:3000) to view your application.
-    - 🔄 Live reloading enabled. Changes to files will trigger a page reload.
-    - 🚨 View lint errors in the console.
-
-    **To start the Node.js server:**
-
-    ```bash
-    nodemon index.js
-    ```
-
-## 🧪 Usage
-
-### Running Tests
-
-To run the test suite in interactive watch mode:
+Start by cloning the repository:
 
 ```bash
-yarn test
+git clone https://github.com/Slygriyrsk/blog-mern.git
+cd blog-mern
 ```
 
-- 📝 Check out the details on running tests to understand more.
+### Install Dependencies
 
-## 🛠️ Building for Production
+#### Back-End
 
-1. **To build your app for production**
-    ```bash
-    yarn build
-    ```
+Navigate to the root directory and install back-end dependencies:
 
-2. **🚀 The production build is optimized and placed in the build folder.**
-3. **💎 Minified with hashed filenames for best performance.**
-4. **🔧 Your app is now ready for deployment!**
-5. **🔗 For deployment details, see deployment.**
+```bash
+npm install
+```
 
-## ⚠️ yarn eject
-**Warning:** This is a one-way operation!
-If you need to customize the build configuration beyond what's provided, you can eject. This will copy all configuration files and dependencies (like webpack, Babel, ESLint) into your project, giving you full control.
+#### Front-End
 
-**Note:** Ejecting is irreversible. You’ll be responsible for maintaining the configuration files yourself.
+Navigate to the `client` directory and install front-end dependencies:
 
-## 🤝 Contributing
-We welcome contributions to this project! If you have suggestions, bug fixes, or features to propose, please follow these steps:
+```bash
+cd client
+yarn install
+```
 
-- **Fork the repository and create your branch**
-    ```bash
-    git checkout -b feature/YourFeature
-    ```
+### Environment Variables
 
-- **Commit your changes** 
-    ```bash
-    git commit -am 'Add new feature'
-    ```
-- **Push to the branch**
-    ```bash
-    git push origin feature/YourFeature
-    ```
-- **Create a new Pull Request**
+Create a `.env` file in the root directory with the following content:
 
-## 📄 License
+```env
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster3.yk22b.mongodb.net/?retryWrites=true&w=majority
+SECRET_KEY=your_secret_key
+PORT=3000
+```
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for details.
+Replace `your_secret_key` with a secure key of your choice.
 
-## 🎨 Credits
+### Start the Server
 
-Special thanks to all the contributors and libraries that made this project possible.
+To start the server, run the following command from the root directory:
 
-- [Create React App](https://github.com/facebook/create-react-app) for the initial setup.
-- [MERN Stack](https://mernjs.com/) for providing a comprehensive development stack.
+In **api** folder
+```bash
+nodemon index.js
+```
+
+In **client** folder
+```bash
+yarn start
+```
+
+The application should now be running at `http://localhost:3000`.
+
+🗃️ MongoDB Integration
+-----------------------
+
+### Database Setup
+
+-   **Database Name**: `blog-platform`
+-   **Collections**:
+    -   `users`: Stores user credentials and profile information.
+    -   `posts`: Stores blog posts, including title, content, and author.
+
+### Database Operations
+
+-   **Fetching User Data**: Retrieve user data from the `users` collection using their credentials.
+-   **Fetching Posts**: Retrieve posts from the `posts` collection.
+-   **Creating Posts**: Add new posts to the `posts` collection.
+-   **Editing Posts**: Update posts that belong to the logged-in user.
+
+### MongoDB Screenshots
+
+#### User Collection
+
+Below is a screenshot showing the `users` collection in MongoDB:
+![Screenshot 2024-09-01 212051](https://github.com/user-attachments/assets/ddd490b5-11f0-42df-a936-1386dd6f1952)
+
+#### Post Collection
+
+Below is a screenshot showing the `posts` collection in MongoDB:
+![Screenshot 2024-09-01 212110](https://github.com/user-attachments/assets/87282c47-996c-4b19-a3e5-f52e61bcafa3)
+
+🔐 User Authentication
+----------------------
+
+### Endpoints
+
+-   **Register**: `POST /api/auth/register`
+    -   Required Fields: `username`, `password`
+-   **Login**: `POST /api/auth/login`
+    -   Required Fields: `username`, `password`
+-   **Logout**: `POST /api/auth/logout`
+
+### User Access
+
+-   **Logged-in Users**: Can create, edit, and delete their own posts.
+-   **Guests**: Can view posts but cannot create or edit.
+
+📝 Features
+-----------
+
+### 1\. **Register** 📝
+
+Users can register by providing a username and password.
+
+### 2\. **Login** 🔑
+
+Users log in with their credentials to access their personal dashboard.
+
+### 3\. **Create Post** 🖋️
+
+Logged-in users can create new posts. Ensure to include a title and content.
+
+### 4\. **Edit Post** ✏️
+
+Users can edit their own posts. Only posts created by the logged-in user can be edited.
+
+### 5\. **View Posts** 👀
+
+All users, including guests, can view posts. Posts are displayed with their respective titles and content.
+
+### 6\. **Logout** 🚪
+
+Users can log out of their accounts, which will end their session.
+
+## ⚙️ File Structure
 
 
+### Root Directory
 
-## Badges
+```/blog-platform
+|-- /client
+|   |-- /src
+|       |-- /pages
+|           |-- CreatePage.js
+|           |-- EditPage.js
+|           |-- IndexPage.js
+|           |-- LoginPage.js
+|           |-- PostPage.js
+|           |-- RegisterPage.js
+|-- /api
+|   |-- /models
+|       |-- post.js
+|       |-- user.js
+|   |-- /uploads
+|       |-- [uploaded files]
+|   |-- index.js
+|-- .env
+|-- package.json
+|-- README.md
+```
 
+### Description of Key Files and Folders
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-[![MongoDB License](https://img.shields.io/badge/License-MongoDB-blue.svg)](https://www.mongodb.com/legal/software-license)
-[![Node.js License](https://img.shields.io/badge/license-Node.JS-green.svg)](https://opensource.org/licenses/MIT)
-[![Express License](https://img.shields.io/badge/license-Express-blue.svg)](https://opensource.org/licenses/MIT)
-[![React License](https://img.shields.io/badge/license-React-red.svg)](https://opensource.org/licenses/MIT)
+-   **`/client/src/pages`**: Contains React components for various pages:
 
+    -   `CreatePage.js`: Page for creating a new post.
+    -   `EditPage.js`: Page for editing an existing post.
+    -   `IndexPage.js`: Home page displaying all posts.
+    -   `LoginPage.js`: Page for user login.
+    -   `PostPage.js`: Page for viewing a single post.
+    -   `RegisterPage.js`: Page for user registration.
+-   **`/api/models`**: Contains Mongoose models:
+
+    -   `post.js`: Schema for blog posts.
+    -   `user.js`: Schema for user information.
+-   **`/api/uploads`**: Directory for storing uploaded files, such as images associated with blog posts.
+
+-   **`/api/index.js`**: Entry point for the back-end API, including routes and middleware.
+
+📝 Contributing
+---------------
+
+Contributions are welcome! Please submit issues, suggestions, or pull requests to improve the project.
+
+📧 Contact
+----------
+
+For any inquiries, please reach out to slygrin005@gmail.com.
+
+Thank you for using the Blog Platform! Happy blogging! 🎉

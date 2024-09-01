@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads')); // we should add the endpoint for our image
 
-mongoose.connect('mongodb+srv://windbreaker976:Nsp3XjjFriLU7hA9@cluster0.wfllthx.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://devruntimeerror69:5s9AcZtQXaUDvp21@cluster3.yk22b.mongodb.net/?retryWrites=true&w=majority');
 
 app.post("/register", async (req, res) => {
     try { // try catch to not let same user register multiple times
