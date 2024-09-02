@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
@@ -13,15 +15,17 @@ const fs = require('fs'); // use it to rename the file name
 
 const port = 4000;
 const salt = bcrypt.genSaltSync(10); // to hash a password
-const secret = 'My-256-byte-Secret'; // secretkey used to sign the token
+const secret = process.env.JWT_SECRET; // secretkey used to sign the token
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' })); // credentials ko true kro and origin is react app hosting url
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads')); // we should add the endpoint for our image
 
-mongoose.connect('mongodb+srv://devruntimeerror69:5s9AcZtQXaUDvp21@cluster3.yk22b.mongodb.net/?retryWrites=true&w=majority');
-//mongodb+srv://devruntimeerror69:5s9AcZtQXaUDvp21@cluster3.yk22b.mongodb.net/?retryWrites=true&w=majority
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 app.post("/register", async (req, res) => {
     try { // try catch to not let same user register multiple times
         const { username, password } = req.body; // fetch username and password from body
@@ -179,5 +183,3 @@ app.listen(port, () => {
     console.log(`App is listening on ${port}`);
 });
 
-// Nsp3XjjFriLU7hA9
-// mongodb+srv://windbreaker976:Nsp3XjjFriLU7hA9@cluster0.wfllthx.mongodb.net/?retryWrites=true&w=majority
