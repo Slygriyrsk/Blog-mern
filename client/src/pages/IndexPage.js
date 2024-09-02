@@ -2,22 +2,24 @@ import Post from "../Post";
 import { useEffect, useState } from "react";
 
 export default function IndexPage() {
-    const [posts, setPosts] = useState([]);  // create an empty array of posts to store new post
+    const [posts, setPosts] = useState([]);  // Create an empty array of posts to store new posts
+
     useEffect(() => {
-        // using get req for post so that we get to our main page
-        fetch('http://localhost:4000/post').then(response => { //fetch and json are async fnct so we used .then
-            response.json().then(posts => {
+        // Fetching posts from the API
+        fetch('http://localhost:4000/post')
+            .then(response => response.json())
+            .then(posts => {
                 setPosts(posts);
+            })
+            .catch(error => {
+                console.error("Failed to fetch posts:", error);
             });
-        });
     }, []);
+
     return (
         <>
-            {/* <Post />
-        <Post />
-        <Post /> */}
             {posts.length > 0 && posts.map(post => (
-                <Post {...post} /> // pass the properties of post
+                <Post key={post._id} {...post} />  // Provide a unique key prop
             ))}
         </>
     );

@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads')); // we should add the endpoint for our image
 
 mongoose.connect('mongodb+srv://devruntimeerror69:5s9AcZtQXaUDvp21@cluster3.yk22b.mongodb.net/?retryWrites=true&w=majority');
-
+//mongodb+srv://devruntimeerror69:5s9AcZtQXaUDvp21@cluster3.yk22b.mongodb.net/?retryWrites=true&w=majority
 app.post("/register", async (req, res) => {
     try { // try catch to not let same user register multiple times
         const { username, password } = req.body; // fetch username and password from body
