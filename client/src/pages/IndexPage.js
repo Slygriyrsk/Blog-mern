@@ -6,7 +6,7 @@ export default function IndexPage() {
 
     useEffect(() => {
         // Fetching posts from the API
-        fetch('http://localhost:4000/post')
+        fetch('https://blog-mern-backend-e9ia.onrender.com/post')
             .then(response => response.json())
             .then(posts => {
                 setPosts(posts);
