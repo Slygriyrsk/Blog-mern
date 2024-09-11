@@ -15,7 +15,7 @@ export default function Post({ _id, title, summary, cover, content, createdAt, a
         <div className="post">
             <div className="image">
                 <Link to={`/post/${_id}`}> {/* this is used for link to the post of a logged user */}
-                    <img src={'http://localhost:4000/' + cover} alt="" />
+                    <img src={'https://blog-mern-backend-e9ia.onrender.com/' + cover} alt="" />
                 </Link>
             </div>
             <div className="texts">
