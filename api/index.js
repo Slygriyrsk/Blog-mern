@@ -13,7 +13,7 @@ const multer = require('multer');
 const uploadMiddleware = multer({ dest: 'uploads/' });
 const fs = require('fs'); // use it to rename the file name
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 const salt = bcrypt.genSaltSync(10); // to hash a password
 const secret = process.env.JWT_SECRET; // secretkey used to sign the token
 
@@ -22,10 +22,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads')); // we should add the endpoint for our image
 
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
 app.post("/register", async (req, res) => {
     try { // try catch to not let same user register multiple times
         const { username, password } = req.body; // fetch username and password from body
@@ -43,23 +43,24 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     const userDoc = await User.findOne({ username });
-    const passOK = bcrypt.compareSync(password, userDoc.password); // retuen true if pass matches
-    // res.json(passOK);
+    if (!userDoc) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+    const passOK = bcrypt.compareSync(password, userDoc.password);
 
     if (passOK) {
-        //logged in
         jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
-            if (err) throw err;
-            // res.cookie('token', token).json('OK'); instead of sending ok in json 
+            if (err) return res.status(500).json({ message: 'Error generating token' });
             res.cookie('token', token).json({
-                id: userDoc._id, //._id because it is written in that form in the preview section of profile
+                id: userDoc._id,
                 username,
             });
         });
     } else {
-        res.status(404).json({ message: 'Request failed' });
+        res.status(401).json({ message: 'Invalid password' });
     }
 });
+
 
 app.get("/profile", (req, res) => {
     const { token } = req.cookies;
@@ -74,30 +75,34 @@ app.post("/logout", (req, res) => {
     res.cookie('token', '').json('OK');
 });
 
-app.post('/post', uploadMiddleware.single('file'), async (req, res) => { // .single('file') cause we ahve named it as data.set('file', files[0]);
-    const { originalname, path } = req.file;
-    const parts = originalname.split('.');
-    const ext = parts[parts.length - 1]; // we will be sending the file extension not the whole for clear view
-    const newPath = path + '.' + ext;
-    fs.renameSync(path, newPath); // to get the filename with ext
+app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
+    const { file } = req;
+    if (!file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+    }
+    const { originalname, path } = file;
+    const ext = originalname.split('.').pop();
+    const newPath = `${path}.${ext}`;
+    fs.renameSync(path, newPath);
 
     const { token } = req.cookies;
+    if (!token) {
+        return res.status(401).json({ message: 'No token provided' });
+    }
+
     jwt.verify(token, secret, {}, async (err, info) => {
-        if (err) throw err;
+        if (err) return res.status(401).json({ message: 'Invalid token' });
+
         const { title, summary, content } = req.body;
         const postDoc = await Post.create({
             title,
             summary,
             content,
-            cover: newPath, // cover for the image with the filename and ext
-            author: info.id, // this will help to create a new user id and use it as ref so we used jwt just like in prev case above it
+            cover: newPath,
+            author: info.id,
         });
         res.json(postDoc);
-        //res.json(info);
     });
-
-    //res.json({extension});
-    //res.json({title, summary, content});
 });
 
 
