@@ -17,7 +17,7 @@ const port = process.env.PORT || 4000;
 const salt = bcrypt.genSaltSync(10); // to hash a password
 const secret = process.env.JWT_SECRET; // secretkey used to sign the token
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' })); // credentials ko true kro and origin is react app hosting url
+app.use(cors({ credentials: true, origin: 'http://localhost:4000' })); // credentials ko true kro and origin is react app hosting url
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads')); // we should add the endpoint for our image
