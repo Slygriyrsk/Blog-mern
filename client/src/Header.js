@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "./UserContext";
 
@@ -6,7 +6,7 @@ export default function Header() {
     // const [username, setUsername] = useState(null);
     const {setUserInfo, userInfo} = useContext(UserContext);
     useEffect(() => {
-        fetch('https://blog-mern-backend-e9ia.onrender.com/profile', {
+        fetch('http://localhost:3000/profile', {
             credentials: 'include',
         }).then(response => {
             response.json().then(userInfo => {
@@ -17,7 +17,7 @@ export default function Header() {
     }, []);
 
     function Logout() {
-        fetch('https://blog-mern-backend-e9ia.onrender.com/logout', {
+        fetch('http://localhost:4000/logout', {
             credentials: 'include',
             method: 'POST',
         });

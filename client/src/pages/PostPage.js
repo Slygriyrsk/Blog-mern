@@ -9,7 +9,7 @@ export default function PostPage() {
 
     useEffect(() => {
         // Fetch post data
-        fetch(`https://blog-mern-backend-e9ia.onrender.com/post/${id}`)
+        fetch(`http://localhost:4000/post/${id}`)
             .then(response => response.json())
             .then(postInfo => {
                 setPostInfo(postInfo);
@@ -50,7 +50,7 @@ export default function PostPage() {
             )}
 
             <div className="image">
-                <img src={`https://blog-mern-backend-e9ia.onrender.com/${cover}`} alt={title} />
+                <img src={`http://localhost:4000/${cover}`} alt={title} />
             </div>
             <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
         </div>

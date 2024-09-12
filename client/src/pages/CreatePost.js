@@ -17,7 +17,7 @@ import Editor from "../Editor";
           data.set('content', content);
           data.set('file', files[0]);
           ev.preventDefault();
-          const response = await fetch('https://blog-mern-backend-e9ia.onrender.com/post', {
+          const response = await fetch('http://localhost:3000/post', {
             method: 'POST',
             body: data,
             credentials: 'include', // so that we can also fetch the author id
