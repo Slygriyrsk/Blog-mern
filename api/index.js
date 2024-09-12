@@ -17,11 +17,7 @@ const port = process.env.PORT || 4000;
 const salt = bcrypt.genSaltSync(10); // to hash a password
 const secret = process.env.JWT_SECRET; // secretkey used to sign the token
 
-app.use(cors({
-    credentials: true,
-    origin: ['http://localhost:3000', 'https://blog-mern-frontend-wmvp.onrender.com'] // Add your deployed frontend URL here
-  }));
-  
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' })); // credentials ko true kro and origin is react app hosting url
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads')); // we should add the endpoint for our image
@@ -66,12 +62,22 @@ app.post("/login", async (req, res) => {
 });
 
 
-app.get("/profile", (req, res) => {
+app.get("/profile", async (req, res) => {
     const { token } = req.cookies;
-    jwt.verify(token, secret, {}, (err, info) => {
-        if (err) throw err;
-        res.json(info);
+    if(!token) {
+        return res.status(403).send({
+            error: 'Unauthorized'
+        });
+    }
+
+    const info = await new Promise((resolve, reject) => {
+        jwt.verify(token, secret, {}, (err, info) => {
+            if (err) reject(err);
+            else resolve(info);
+        });
     });
+    
+    return res.json(info);
     //res.json(req.cookies);
 });
 
